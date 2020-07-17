@@ -2,17 +2,17 @@
 %   初始化 initialization
 %--------------------------------------------------------------------------
 clear;clc;
-%---------------------------UK Surveillance and Isolation------------------
+%-------------------------Wuhan No Intervention----------------------------
 %--------------------------------------------------------------------------
 %   参数设置 Parameter settings
 %--------------------------------------------------------------------------
-N = 66490000;                                                              %人口总数 Total population 
+N = 14186500;                                                              %人口总数 Total population 
 E = 0;                                                                     %潜伏者 Exposed
-I = 3;                                                                     %传染者 Infected
+I = 1;                                                                     %传染者 Infected
 S = N - I;                                                                 %易感者 Susceptible
 R = 0;                                                                     %康复者 Recovered
-Z = 3;                                                                     %累积的感染人数 Infected cases 
-M = 3;                                                                     %轻症感染人数 mild cases
+Z = 1;                                                                     %累积的感染人数 Infected cases 
+M = 1;                                                                     %轻症感染人数 mild cases
 C = 0;                                                                     %中重症感染人数 serious cases
 D = 0;                                                                     %死亡人数 death
 Q = 0;                                                                     %总感染人数 total infected cases
@@ -20,7 +20,7 @@ Q = 0;                                                                     %总感
 r = 3;                                                                     %感染者接触易感者的人数 the number of persons infected who have been exposed to susceptible persons
 B = 0.05249;                                                               %传染概率 infection probability
 a = 1/6;                                                                   %潜伏者转化为感染者概率 probability of exposed to become infected 
-r2 = 12;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
+r2 = 15;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
 B2 = 0.05249;                                                              %潜伏者传染正常人的概率 probability of infected susceptible
 y = 0.283;                                                                 %潜伏者自愈率 probability of recovered exposed
 mild = 0.8;                                                                %轻症比例 proportion of mild critical cases 
@@ -36,9 +36,6 @@ i = 1;                                                                     %隔离
 T = 1:350;
 for idx = 1:length(T)-1
     r2(idx+1) = r2(idx);
-    if idx>=8      %八天后采取强隔离措施 Take strong isolation measures after eight days                                                   
-        i = 0.2;          %隔离率 Isolation rate                                          
-    end
     %易感者 susceptible
     S(idx+1) = S(idx) - r*B*S(idx)*(M(idx)+C(idx))/N(1) - i*r2(idx)*B2*S(idx)*E(idx)/N;                         
     %潜伏者 exposed
@@ -61,9 +58,9 @@ for idx = 1:length(T)-1
 end
 
 
-xlabel('Number of Days from 6th Feburary');ylabel('Number of People')
-plot(T,E,T,I,T,R);grid on;
-legend('Daily expoesd population','Daily infectious population','Total recovered population')
+xlabel('Number of Days from 21st December');ylabel('Number of People')
+plot(T,E,T,I,T,D,T,M,T,C);grid on;
+legend('Daily expoesd population','Daily infectious population','Total deaths','Daily population of Mild symptoms','Daily population of Severe and Critical symptoms')
 
 hold on;
-title('UK Surveillance and Isolation SEIR model')
+title('Wuhan No Intervention SEIR model')

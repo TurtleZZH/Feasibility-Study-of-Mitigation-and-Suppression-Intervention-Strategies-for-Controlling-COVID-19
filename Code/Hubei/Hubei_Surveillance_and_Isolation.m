@@ -2,11 +2,11 @@
 %   初始化 initialization
 %--------------------------------------------------------------------------
 clear;clc;
-%---------------------------UK Surveillance and Isolation------------------
+%--------------Hubei Surveillance and Isolation----------------------------
 %--------------------------------------------------------------------------
 %   参数设置 Parameter settings
 %--------------------------------------------------------------------------
-N = 66490000;                                                              %人口总数 Total population 
+N = 58900000;                                                              %人口总数 Total population 
 E = 0;                                                                     %潜伏者 Exposed
 I = 3;                                                                     %传染者 Infected
 S = N - I;                                                                 %易感者 Susceptible
@@ -20,7 +20,7 @@ Q = 0;                                                                     %总感
 r = 3;                                                                     %感染者接触易感者的人数 the number of persons infected who have been exposed to susceptible persons
 B = 0.05249;                                                               %传染概率 infection probability
 a = 1/6;                                                                   %潜伏者转化为感染者概率 probability of exposed to become infected 
-r2 = 12;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
+r2 = 15;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
 B2 = 0.05249;                                                              %潜伏者传染正常人的概率 probability of infected susceptible
 y = 0.283;                                                                 %潜伏者自愈率 probability of recovered exposed
 mild = 0.8;                                                                %轻症比例 proportion of mild critical cases 
@@ -36,10 +36,10 @@ i = 1;                                                                     %隔离
 T = 1:350;
 for idx = 1:length(T)-1
     r2(idx+1) = r2(idx);
-    if idx>=8      %八天后采取强隔离措施 Take strong isolation measures after eight days                                                   
-        i = 0.2;          %隔离率 Isolation rate                                          
+    if idx>=6      %六天后采取强隔离措施   Take strong isolation measures after six days                                             
+        i = 0.2;          %隔离率 Isolation rate                                            
     end
-    %易感者 susceptible
+   %易感者 susceptible
     S(idx+1) = S(idx) - r*B*S(idx)*(M(idx)+C(idx))/N(1) - i*r2(idx)*B2*S(idx)*E(idx)/N;                         
     %潜伏者 exposed
     E(idx+1) = E(idx) + r*B*S(idx)*(M(idx)+C(idx))/N(1)-a*E(idx) + i*r2(idx)*B2*S(idx)*E(idx)/N-y(idx)*E(idx);
@@ -61,9 +61,9 @@ for idx = 1:length(T)-1
 end
 
 
-xlabel('Number of Days from 6th Feburary');ylabel('Number of People')
+xlabel('Number of Days from 21st December');ylabel('Number of People')
 plot(T,E,T,I,T,R);grid on;
 legend('Daily expoesd population','Daily infectious population','Total recovered population')
 
 hold on;
-title('UK Surveillance and Isolation SEIR model')
+title('Hubei Surveillance and Isolation SEIR model')

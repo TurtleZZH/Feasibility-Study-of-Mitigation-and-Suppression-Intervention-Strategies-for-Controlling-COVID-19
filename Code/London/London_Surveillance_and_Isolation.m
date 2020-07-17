@@ -2,11 +2,11 @@
 %   初始化 initialization
 %--------------------------------------------------------------------------
 clear;clc;
-%---------------------------UK Surveillance and Isolation------------------
+%--------------------London Surveillance and Isolation---------------------
 %--------------------------------------------------------------------------
-%   参数设置 Parameter settings
+%   参数设置
 %--------------------------------------------------------------------------
-N = 66490000;                                                              %人口总数 Total population 
+N = 9300000;                                                               %人口总数 Total population 
 E = 0;                                                                     %潜伏者 Exposed
 I = 3;                                                                     %传染者 Infected
 S = N - I;                                                                 %易感者 Susceptible
@@ -20,7 +20,7 @@ Q = 0;                                                                     %总感
 r = 3;                                                                     %感染者接触易感者的人数 the number of persons infected who have been exposed to susceptible persons
 B = 0.05249;                                                               %传染概率 infection probability
 a = 1/6;                                                                   %潜伏者转化为感染者概率 probability of exposed to become infected 
-r2 = 12;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
+r2 = 15;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
 B2 = 0.05249;                                                              %潜伏者传染正常人的概率 probability of infected susceptible
 y = 0.283;                                                                 %潜伏者自愈率 probability of recovered exposed
 mild = 0.8;                                                                %轻症比例 proportion of mild critical cases 
@@ -30,14 +30,14 @@ ym = 1/7;                                                                  %轻症
 yc = 1/14;                                                                 %中重症康复时间 Severe and critical case recovery time for mild cases
 ac = 1/7;                                                                  %发现症状到重症一周时间 Symptoms were detected up to a week after serious illness
 dc = 1/28;                                                                 %中重症死亡中位数28天 Severe and critical case number of death in hospital is 28
-i = 1;                                                                     %隔离率 Isolation rate 
+i = 1;                                                                     %隔离率 Isolation rate
 
 
 T = 1:350;
 for idx = 1:length(T)-1
     r2(idx+1) = r2(idx);
-    if idx>=8      %八天后采取强隔离措施 Take strong isolation measures after eight days                                                   
-        i = 0.2;          %隔离率 Isolation rate                                          
+    if idx>=6      %五天后采取强隔离措施  Take strong isolation measures after five days                                             
+        i = 0.2;          %隔离率   Isolation rate                                       
     end
     %易感者 susceptible
     S(idx+1) = S(idx) - r*B*S(idx)*(M(idx)+C(idx))/N(1) - i*r2(idx)*B2*S(idx)*E(idx)/N;                         
@@ -66,4 +66,4 @@ plot(T,E,T,I,T,R);grid on;
 legend('Daily expoesd population','Daily infectious population','Total recovered population')
 
 hold on;
-title('UK Surveillance and Isolation SEIR model')
+title('London Surveillance and Isolation SEIR model')
