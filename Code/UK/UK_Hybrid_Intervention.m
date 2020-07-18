@@ -2,7 +2,7 @@
 %   初始化 initialization
 %--------------------------------------------------------------------------
 clear;clc;
-%---------------------------UK Mitigation Intervention---------------------
+%---------------------------UK Multiple Intervention-----------------------
 %--------------------------------------------------------------------------
 %   参数设置 Parameter settings
 %--------------------------------------------------------------------------
@@ -31,18 +31,77 @@ yc = 1/14;                                                                 %中重
 ac = 1/7;                                                                  %发现症状到重症一周时间 Symptoms were detected up to a week after serious illness
 dc = 1/28;                                                                 %中重症死亡中位数28天 Severe and critical case number of death in hospital is 28
 i = 0.924;                                                                 %隔离率 Isolation rate 
+u = 6;%上界 upper bound
+m = 4.5;%中位 median
+d = 3;%下界 lower bound
 
-
-T = 1:350;
+T = 1:500;
 T1 = 1:96;
 for idx = 1:length(T)-1
     r2(idx+1) = r2(idx);
-    if idx>=35                                                             %以二月七日为起准，35日后即三月一十二日进行限制流通措施 Based on February 7th, 35 days later on March 12th to restrict circulation measures
-        if r2(idx) ~= 12                                                    %强干预下，流通限制强从12到8，采取限制后每天减少两个人 Under strong intervention, the circulation limit is strong from 12 to 8, and two persons are reduced every day after taking the limit
+    %每两周放缩3-4.5-6-4.5-3 Scaling every two weeks 3-4.5-6-4.5-3
+    if idx>=427
+        r2(idx+1) = d;
+    elseif idx>=413
+        r2(idx+1) = m;
+    elseif idx>=399
+       r2(idx+1) = d;
+    elseif idx>=385                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=371
+       r2(idx+1) = u;
+    elseif idx>=357
+        r2(idx+1) = m;
+    elseif idx>=343
+        r2(idx+1) = d;
+    elseif idx>=329                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=315                                                                                               
+        r2(idx+1) = u;
+    elseif idx>=301                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=287                                                                                               
+        r2(idx+1) = d;
+    elseif idx>=273                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=258                                                                                               
+        r2(idx+1) = u;
+    elseif idx>=245                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=231                                                                                               
+        r2(idx+1) = d;
+    elseif idx>=217                                                                                              
+        r2(idx+1) = m;
+    elseif idx>=203                                                                                              
+        r2(idx+1) = u;
+    elseif idx>=189                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=175                                                                                              
+        r2(idx+1) = d;
+    elseif idx>=161                                                                                             
+        r2(idx+1) = m;
+    elseif idx>=147                                                                                             
+        r2(idx+1) = u;
+    elseif idx>=133                                                                                              
+        r2(idx+1) = m;
+    elseif idx>=119                                                                                              
+        r2(idx+1) = d;
+    elseif idx>=105                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=91                                                                                               
+        r2(idx+1) = u;
+    elseif idx>=77                                                                                               
+        r2(idx+1) = m;
+    elseif idx>=63                                                                                               
+        r2(idx+1) = d;
+    elseif idx>=49                                                                                               
+        r2(idx+1) = m;    
+    elseif idx>=35                                                         %以二月七日为起准，35日后即三月一十二日进行限制流通放缩措施 Based on February 7th, 35 days later, March 12th will be implemented to restrict circulation and deflation measures
+        if r2(idx) ~= u                                                    %强干预下，流通限制强从12到6，采取限制后每天减少两个人 Strong intervention, circulation restrictions are strong from 12 to 6, and two people are reduced every day after taking the restrictions
             r2(idx+1) = r2(idx)-2;
         end
     end
-    %易感者 susceptible
+   %易感者 susceptible
     S(idx+1) = S(idx) - r*B*S(idx)*(M(idx)+C(idx))/N(1) - i*r2(idx)*B2*S(idx)*E(idx)/N;                         
     %潜伏者 exposed
     E(idx+1) = E(idx) + r*B*S(idx)*(M(idx)+C(idx))/N(1)-a*E(idx) + i*r2(idx)*B2*S(idx)*E(idx)/N-y(idx)*E(idx);
@@ -68,4 +127,4 @@ plot(T,E,T,I);grid on;
 legend('Daily expoesd population','Daily infectious population')
 
 hold on;
-title('UK Mitigation Intervention SEIR model')
+title('UK Multiple Intervention SEIR model')

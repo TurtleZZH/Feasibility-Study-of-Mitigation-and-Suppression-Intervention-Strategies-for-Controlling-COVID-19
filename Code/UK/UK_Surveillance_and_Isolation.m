@@ -63,6 +63,7 @@ end
 
 xlabel('Number of Days from 6th Feburary');ylabel('Number of People')
 plot(T,E,T,I,T,R);grid on;
+
 legend('Daily expoesd population','Daily infectious population','Total recovered population')
 
 hold on;

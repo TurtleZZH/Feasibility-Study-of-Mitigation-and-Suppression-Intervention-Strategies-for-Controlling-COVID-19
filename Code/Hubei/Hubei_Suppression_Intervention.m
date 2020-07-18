@@ -2,17 +2,17 @@
 %   初始化 initialization
 %--------------------------------------------------------------------------
 clear;clc;
-%---------------------------UK Mitigation Intervention---------------------
+%--------------------Hubei Suppression Intervention------------------------
 %--------------------------------------------------------------------------
 %   参数设置 Parameter settings
 %--------------------------------------------------------------------------
-N = 66490000;                                                              %人口总数 Total population 
+N = 58900000;                                                              %人口总数 Total population 
 E = 0;                                                                     %潜伏者 Exposed
-I = 3;                                                                     %传染者 Infected
+I = 1;                                                                     %传染者 Infected
 S = N - I;                                                                 %易感者 Susceptible
 R = 0;                                                                     %康复者 Recovered
-Z = 3;                                                                     %累积的感染人数 Infected cases 
-M = 3;                                                                     %轻症感染人数 mild cases
+Z = 1;                                                                     %累积的感染人数 Infected cases 
+M = 1;                                                                     %轻症感染人数 mild cases
 C = 0;                                                                     %中重症感染人数 serious cases
 D = 0;                                                                     %死亡人数 death
 Q = 0;                                                                     %总感染人数 total infected cases
@@ -20,7 +20,7 @@ Q = 0;                                                                     %总感
 r = 3;                                                                     %感染者接触易感者的人数 the number of persons infected who have been exposed to susceptible persons
 B = 0.05249;                                                               %传染概率 infection probability
 a = 1/6;                                                                   %潜伏者转化为感染者概率 probability of exposed to become infected 
-r2 = 12;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
+r2 = 15;                                                                   %潜伏者接触易感者的人数 the number of exposed to susceptible
 B2 = 0.05249;                                                              %潜伏者传染正常人的概率 probability of infected susceptible
 y = 0.283;                                                                 %潜伏者自愈率 probability of recovered exposed
 mild = 0.8;                                                                %轻症比例 proportion of mild critical cases 
@@ -30,15 +30,14 @@ ym = 1/7;                                                                  %轻症
 yc = 1/14;                                                                 %中重症康复时间 Severe and critical case recovery time for mild cases
 ac = 1/7;                                                                  %发现症状到重症一周时间 Symptoms were detected up to a week after serious illness
 dc = 1/28;                                                                 %中重症死亡中位数28天 Severe and critical case number of death in hospital is 28
-i = 0.924;                                                                 %隔离率 Isolation rate 
+i = 1;                                                                     %隔离率 Isolation rate 
 
 
 T = 1:350;
-T1 = 1:96;
 for idx = 1:length(T)-1
     r2(idx+1) = r2(idx);
-    if idx>=35                                                             %以二月七日为起准，35日后即三月一十二日进行限制流通措施 Based on February 7th, 35 days later on March 12th to restrict circulation measures
-        if r2(idx) ~= 12                                                    %强干预下，流通限制强从12到8，采取限制后每天减少两个人 Under strong intervention, the circulation limit is strong from 12 to 8, and two persons are reduced every day after taking the limit
+    if idx>=32                                                             %以十二月二十一日为起准，32日后即一月二十三日进行限制流通措施 %Based on December 21st, the circulation restriction measures will be implemented on January 23rd after 32 days
+        if r2(idx) ~= 3                                                    %强干预下，流通限制强从15到3，采取限制后每天减少两个人Under strong intervention, the circulation limit is from 15 to 3, and two persons are reduced every day after taking the limit
             r2(idx+1) = r2(idx)-2;
         end
     end
@@ -63,9 +62,11 @@ for idx = 1:length(T)-1
     y(idx+1) = y(idx);
 end
 
-xlabel('Number of Days from 6th Feburary');ylabel('Number of People')
+
+
+xlabel('Number of Days from 21st December');ylabel('Number of People')
 plot(T,E,T,I);grid on;
 legend('Daily expoesd population','Daily infectious population')
 
 hold on;
-title('UK Mitigation Intervention SEIR model')
+title('Hubei Suppression Intervention SEIR model')
