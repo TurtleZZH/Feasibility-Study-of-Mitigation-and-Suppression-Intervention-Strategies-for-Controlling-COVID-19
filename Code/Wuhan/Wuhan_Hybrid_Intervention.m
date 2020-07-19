@@ -2,11 +2,11 @@
 %   初始化 initialization
 %--------------------------------------------------------------------------
 clear;clc;
-%-------------------------Hubei No Intervention----------------------------
+%--------------------Wuhan Hybrid Intervention------------------------
 %--------------------------------------------------------------------------
 %   参数设置 Parameter settings
 %--------------------------------------------------------------------------
-N = 58900000;                                                              %人口总数 Total population 
+N = 14186500;                                                              %人口总数 Total population 
 E = 0;                                                                     %潜伏者 Exposed
 I = 1;                                                                     %传染者 Infected
 S = N - I;                                                                 %易感者 Susceptible
@@ -31,73 +31,103 @@ yc = 1/14;                                                                 %中重
 ac = 1/7;                                                                  %发现症状到重症一周时间 Symptoms were detected up to a week after serious illness
 dc = 1/28;                                                                 %中重症死亡中位数28天 Severe and critical case number of death in hospital is 28
 i = 1;                                                                     %隔离率 Isolation rate 
-u = 8;                                                                     %放缩上界 % Scaling upper bound
-d = 3;                                                                     %放缩下界 % Scaling lower bound
+u = 8;%放缩上界% Scaling upper bound
+d = 3;%放缩下界% Scaling lower bound
 
-T = 1:450;
+T = 1:400;
 for idx = 1:length(T)-1
     r2(idx+1) = r2(idx);
-    % 3-8,2week
-    if idx>=424
-                                            
-            r2(idx+1) = d;
- 
-    elseif idx>=410
-       r2(idx+1) = u;
-    elseif idx>=396
-        r2(idx+1) = d;
-    elseif idx>=382
-        r2(idx+1) = u;
-    elseif idx>=368
-        r2(idx+1) = d;
-    elseif idx>=354
-        r2(idx+1) = u;
-    elseif idx>=340
-        r2(idx+1) = d;
+    %3-8,2weeks
+    if idx>=340
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=326                                                                                               
-        r2(idx+1) = u; 
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=312                                                                                               
-        r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=298                                                                                               
-       r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=284                                                                                               
-      r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=270                                                                                               
-      r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=256                                                                                               
-        r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=242                                                                                               
-        r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=228                                                                                               
-        r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=214                                                                                               
-        r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=200                                                                                              
-        r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=186                                                                                               
-        r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=172                                                                                              
-        r2(idx+1) = d; 
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=158                                                                                              
-        r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=144                                                                                              
-        r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=130                                                                                              
-        r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=116                                                                                              
-        r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=102                                                                                               
-        r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=88                                                                                               
-       r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=74                                                                                               
-        r2(idx+1) = u;
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
     elseif idx>=60                                                                                               
-       r2(idx+1) = d;
+        if r2(idx) ~= d                                                    
+            r2(idx+1) = r2(idx)-2.5;
+        end 
     elseif idx>=46                                                                                               
-       r2(idx+1) = u; 
-    elseif idx>=32                                                         %以十二月二十一日为起准，32日后即一月二十三日进行限制流通措施
-        if r2(idx) ~= d                                                    %强干预下，流通限制强从15到3，采取限制后每天减少两个人
+        if r2(idx) ~= u                                                    
+            r2(idx+1) = r2(idx)+2.5;
+        end 
+    elseif idx>=32                                                         %以十二月二十一日为起准，32日后即一月二十三日进行限制流通措施%Based on December 21st, the circulation restriction measures will be implemented on January 23rd after 32 days
+        if r2(idx) ~= d                                                    %强干预下，流通限制强从15到3，采取限制后每天减少两个人Under strong intervention, the circulation limit is from 15 to 3, and two persons are reduced every day after taking the limit
             r2(idx+1) = r2(idx)-2;
         end
     end
@@ -123,10 +153,9 @@ for idx = 1:length(T)-1
 end
 
 
-
 xlabel('Number of Days from 21st December');ylabel('Number of People')
 plot(T,E,T,I);grid on;
 legend('Daily expoesd population','Daily infectious population')
 
 hold on;
-title('Hubei Hybrid Intervention SEIR model')
+title('Wuhan Hybird Intervention SEIR model')

@@ -2,11 +2,11 @@
 %   初始化 initialization
 %--------------------------------------------------------------------------
 clear;clc;
-%--------------------Hubei Suppression Intervention------------------------
+%--------------------Wuhan Mitigation Intervention------------------------
 %--------------------------------------------------------------------------
 %   参数设置 Parameter settings
 %--------------------------------------------------------------------------
-N = 58900000;                                                              %人口总数 Total population 
+N = 14186500;                                                              %人口总数 Total population 
 E = 0;                                                                     %潜伏者 Exposed
 I = 1;                                                                     %传染者 Infected
 S = N - I;                                                                 %易感者 Susceptible
@@ -36,9 +36,9 @@ i = 1;                                                                     %隔离
 T = 1:350;
 for idx = 1:length(T)-1
     r2(idx+1) = r2(idx);
-    if idx>=32                                                             %以十二月二十一日为起准，32日后即一月二十三日进行限制流通措施 %Based on December 21st, the circulation restriction measures will be implemented on January 23rd after 32 days
-        if r2(idx) ~= 3                                                    %强干预下，流通限制强从15到3，采取限制后每天减少两个人Under strong intervention, the circulation limit is from 15 to 3, and two persons are reduced every day after taking the limit
-            r2(idx+1) = r2(idx)-2;
+    if idx>=32                                                             %以十二月二十一日为起准，32日后即一月二十三日进行限制流通措施%Based on December 21st, the circulation restriction measures will be implemented on January 23rd after 32 days
+        if r2(idx) ~= 8                                                    %强干预下，流通限制强从15到7，采取限制后每天减少两个人Under strong intervention, the circulation limit is from 15 to 8, and 3.5 persons are reduced every day after taking the limit
+            r2(idx+1) = r2(idx)-3.5;
         end
     end
     %易感者 susceptible
@@ -63,10 +63,9 @@ for idx = 1:length(T)-1
 end
 
 
-
 xlabel('Number of Days from 21st December');ylabel('Number of People')
 plot(T,E,T,I);grid on;
 legend('Daily expoesd population','Daily infectious population')
 
 hold on;
-title('Hubei Suppression Intervention SEIR model')
+title('Wuhan Mitigation Intervention SEIR model')
